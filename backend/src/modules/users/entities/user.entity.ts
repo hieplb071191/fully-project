@@ -10,19 +10,19 @@ import { SourceLoginEnum } from '../../../common/enum/source-login.enum';
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id: number;
 
   @Column({ unique: true })
-  username!: string;
+  username: string;
 
   @Column({ unique: true, nullable: false })
-  email!: string;
+  email: string;
 
   @Column()
-  passwordHash!: string;
+  passwordHash: string;
 
   @Column()
-  avatar!: string;
+  avatar: string;
 
   @Column({
     type: 'enum',
@@ -30,23 +30,23 @@ export class User {
     default: SourceLoginEnum.USER,
     enumName: 'source_login_enum',
   })
-  sourceLogin!: SourceLoginEnum;
+  sourceLogin: SourceLoginEnum;
 
   @Column({ default: false })
-  isConfirm!: boolean;
+  isConfirm: boolean;
 
   @Column({ default: false })
-  isTwoFa!: boolean;
+  isTwoFa: boolean;
 
   @Column({ type: 'timestamptz', nullable: true })
-  loginAt!: Date | null;
+  loginAt: Date | null;
 
   @Column({ type: 'timestamptz', nullable: true })
-  bannedAt!: Date | null;
+  bannedAt: Date | null;
 
   @CreateDateColumn()
-  createdAt!: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt!: Date;
+  updatedAt: Date;
 }

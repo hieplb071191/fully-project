@@ -20,6 +20,7 @@ import { LoginResponseDto } from '../dto/login-response.dto';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { CurrentUser } from '../decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../interfaces/jwt-payload.interface';
+import { SignUpDto } from '../dto/sign-up.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -32,7 +33,7 @@ export class AuthController {
   @ApiOkResponse({ type: LoginResponseDto })
   @ApiUnauthorizedResponse({ description: 'Invalid username or password' })
   login(@Body() loginDto: LoginDto): Promise<LoginResponseDto> {
-    return this.authService.login(loginDto.username, loginDto.password);
+    return this.authService.login(loginDto.email, loginDto.password);
   }
 
   @Get('profile')
@@ -43,5 +44,14 @@ export class AuthController {
   @ApiUnauthorizedResponse({ description: 'Missing or invalid token' })
   getProfile(@CurrentUser() user: AuthenticatedUser): AuthenticatedUser {
     return user;
+  }
+
+  @Post('signup')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Log in with username/password and receive a JWT' })
+  @ApiOkResponse({ description: 'The authenticated user' })
+  @ApiUnauthorizedResponse({ description: 'Missing or invalid token' })
+  signUpWithEmail(@Body() body: SignUpDto) {
+    return body;
   }
 }
