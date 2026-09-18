@@ -15,7 +15,7 @@ export class User {
   @Column({ unique: true })
   username!: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: false })
   email!: string;
 
   @Column()
@@ -30,7 +30,7 @@ export class User {
     default: SourceLoginEnum.USER,
     enumName: 'source_login_enum',
   })
-  sourceLogin: SourceLoginEnum;
+  sourceLogin!: SourceLoginEnum;
 
   @Column({ default: false })
   isConfirm!: boolean;
