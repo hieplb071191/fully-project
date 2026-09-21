@@ -52,6 +52,6 @@ export class AuthController {
   @ApiOkResponse({ description: 'The authenticated user' })
   @ApiUnauthorizedResponse({ description: 'Missing or invalid token' })
   signUpWithEmail(@Body() body: SignUpDto) {
-    return body;
+    return this.authService.signup(body);
   }
 }
