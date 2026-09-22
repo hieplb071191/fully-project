@@ -2,24 +2,30 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserService } from '../../users/services/user.service';
-import {
-  AuthenticatedUser,
-} from '../interfaces/jwt-payload.interface';
+import { AuthenticatedUser } from '../interfaces/jwt-payload.interface';
 import { LoginResponseDto } from '../dto/login-response.dto';
 import { SignUpDto } from '../dto/sign-up.dto';
 import { User } from '../../users/entities/user.entity';
+import { DataSource } from 'typeorm';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UserService,
     private readonly jwtService: JwtService,
+    private readonly dataSource: DataSource,
   ) {}
 
   async validateUser(
     email: string,
     password: string,
   ): Promise<AuthenticatedUser> {
+    const u1 = this.dataSource
+      .createQueryBuilder(User, 'users')
+      .innerJoinAndSelect('users.roles', 'roles', "roles.name = 'admin'")
+      .where({ email })
+      .getSql();
+    console.log(u1);
     const user = await this.usersService.findOne({ email: email });
     const isMatch = user
       ? await bcrypt.compare(password, user.passwordHash)
@@ -39,6 +45,7 @@ export class AuthService {
       isTwoFa: user.isTwoFa,
       loginAt: user.loginAt,
       bannedAt: user.bannedAt,
+      roles: user.roles?.map((item) => item.name),
     };
   }
 

@@ -47,6 +47,9 @@ export class User {
   @Column({ type: 'timestamptz', nullable: true })
   bannedAt: Date | null;
 
+  @Column({ type: Boolean, default: false })
+  isFullPermission: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

@@ -1,4 +1,5 @@
 import { SourceLoginEnum } from '../../../common/enum/source-login.enum';
+import { Role } from '../../users/entities/role.entity';
 
 export interface JwtPayload {
   userId: number;
@@ -22,4 +23,5 @@ export interface AuthenticatedUser {
   isConfirm: boolean;
   sourceLogin: SourceLoginEnum;
   avatar: string;
+  roles?: string[];
 }
