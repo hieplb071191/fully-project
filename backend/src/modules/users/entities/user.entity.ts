@@ -2,10 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { SourceLoginEnum } from '../../../common/enum/source-login.enum';
+import { Role } from './role.entity';
 
 @Entity('users')
 export class User {
@@ -49,4 +52,18 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToMany(() => Role, (role) => role.users)
+  @JoinTable({
+    name: 'users_roles',
+    joinColumn: {
+      name: 'userId',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'roleId',
+      referencedColumnName: 'id',
+    },
+  })
+  roles: Role[];
 }

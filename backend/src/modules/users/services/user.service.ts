@@ -30,6 +30,9 @@ export class UserService {
   public findOne(query: Record<string, unknown>) {
     return this.userRepository.findOne({
       where: query,
+      relations: {
+        roles: true,
+      },
     });
   }
 

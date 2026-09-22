@@ -4,7 +4,6 @@ import * as bcrypt from 'bcrypt';
 import { UserService } from '../../users/services/user.service';
 import {
   AuthenticatedUser,
-  JwtPayload,
 } from '../interfaces/jwt-payload.interface';
 import { LoginResponseDto } from '../dto/login-response.dto';
 import { SignUpDto } from '../dto/sign-up.dto';
