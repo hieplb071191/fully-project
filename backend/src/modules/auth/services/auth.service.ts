@@ -46,6 +46,7 @@ export class AuthService {
       loginAt: user.loginAt,
       bannedAt: user.bannedAt,
       roles: user.roles?.map((item) => item.name),
+      isFullPermission: user.isFullPermission,
     };
   }
 

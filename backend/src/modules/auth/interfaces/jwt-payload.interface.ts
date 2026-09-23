@@ -24,4 +24,5 @@ export interface AuthenticatedUser {
   sourceLogin: SourceLoginEnum;
   avatar: string;
   roles?: string[];
+  isFullPermission?: boolean;
 }
